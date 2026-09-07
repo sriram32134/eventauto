@@ -1,0 +1,19 @@
+# Node dependencies
+node_modules/
+
+# Playwright artifacts & reports
+test-results/
+playwright-report/
+blob-report/
+playwright/.cache/
+
+# Auth storage states
+.auth/*.json
+!.auth/.gitkeep
+
+# Environment variables
+.env
+
+# System / OS files
+.DS_Store
+Thumbs.db
