@@ -16,7 +16,9 @@ class ConnectPage {
     this.postCards = page.locator('.card, .student-post-card');
 
     // Create Modal Locators
-    this.modal = page.locator('.modal-content, .modal-dialog').filter({ hasText: /create.*post|new collaboration/i });
+    this.modal = page.locator('.modal-dialog').filter({
+      hasText: /Create Collaboration Post/i
+    });
     this.titleInput = page.getByPlaceholder(/need a backend|title/i).or(page.locator('input[name="title"]'));
     this.requirementSelect = page.locator('select.form-select, select[name="requirement_type"]');
     this.descriptionTextarea = page.getByPlaceholder(/describe your team|description/i).or(page.locator('textarea'));

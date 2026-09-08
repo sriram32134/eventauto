@@ -9,11 +9,24 @@ class AdminAnnouncementsPage {
     this.page = page;
 
     // Form Locators
-    this.titleInput = page.getByPlaceholder(/title/i).or(page.locator('input[name="title"]'));
-    this.descriptionTextarea = page.getByPlaceholder(/description/i).or(page.locator('textarea[name="description"]'));
-    this.prioritySelect = page.locator('select[name="priority"]').or(page.locator('select.form-select').first());
-    this.highlightCheckbox = page.locator('input[type="checkbox"][name="is_highlighted"], .form-check-input').first();
-    this.publishButton = page.getByRole('button', { name: /publish announcement|create announcement|save/i });
+    this.titleInput = page.getByPlaceholder(
+      /e\.g\. Semester Exam Timetable Updated/i
+    );
+
+    this.descriptionTextarea = page.getByPlaceholder(
+      /Full notice content/i
+    );
+
+    this.prioritySelect = page.locator('select').first();
+
+    this.highlightCheckbox = page.getByLabel(
+      /Highlight Announcement on Student Home Page Banner/i
+    );
+
+    this.publishButton = page.getByRole('button', {
+      name: /publish announcement/i
+    });
+
 
     // Table Locators
     this.announcementsTable = page.locator('table').first();
