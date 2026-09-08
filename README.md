@@ -1,203 +1,520 @@
-# Event Manager — Playwright QA Automation Framework
+# Event Manager – QA Automation Framework
 
-An interview-ready, production-grade Playwright Test Automation framework built for the **College Events & Student Connect Platform / Event Manager**.
-
-[![Playwright Tests](https://github.com/actions/workflows/playwright.yml/badge.svg)](https://github.com/actions/workflows/playwright.yml)
-[![Node.js Version](https://img.shields.io/badge/node-%3E%3D18.0.0-brightgreen.svg)](https://nodejs.org/)
-[![Playwright Version](https://img.shields.io/badge/playwright-%5E1.50.0-blue.svg)](https://playwright.dev/)
+A professional QA automation framework developed for the **Event Manager** web application using **Playwright and JavaScript**. The project focuses on validating application functionality through UI automation, API testing, negative testing, and end-to-end workflows using a maintainable Page Object Model architecture.
 
 ---
 
-## 📌 Project Overview
+## Project Overview
 
-The **Event Manager Application** is a full-stack educational web application facilitating official college activity publishing (events, hackathons, technical workshops, sports tournaments) and peer-to-peer student collaboration.
+Event Manager is a role-based college event management platform designed to help students and administrators manage college events, announcements, student accounts, and collaboration activities.
 
-This QA Automation Framework provides end-to-end (E2E), functional, authorization, negative, and API test suites designed with standard QA practices including:
-- **Page Object Model (POM)** pattern.
-- **Storage State Session Reuse** (bypassing repetitive UI sign-ins).
-- **Playwright APIRequestContext** testing for REST backend endpoints.
-- **Custom Fixtures** injecting page objects and API clients into test suites cleanly.
-- **Environment-based credential management** (`.env`).
-- **Tag-based test suite execution** (`@smoke`, `@functional`, `@negative`, `@api`, `@e2e`, `@student`, `@admin`).
-- **CI/CD Integration** via GitHub Actions workflow with HTML artifact publishing.
+This project automates important application workflows from a QA perspective and demonstrates practical software testing concepts including functional testing, API testing, negative testing, authentication validation, role-based testing, and end-to-end workflow automation.
 
----
+### Application
 
-## 🌐 Application Under Test
+**Frontend:**  
+https://eventmanage-wheat.vercel.app/login/student
 
-- **Live Application URL**: [https://eventmanage-wheat.vercel.app/login/student](https://eventmanage-wheat.vercel.app/login/student)
-- **Roles & Portals**:
-  - **Student Role**: Event discovery, category filtering, saving/bookmarking events, collaboration request creation, notification drawer, my posts moderation status.
-  - **Admin Role**: Metrics dashboard, official post publishing/editing/deletion, student account provisioning with temporary password generation, announcement broadcasting & home banner highlighting, student post moderation with mandatory removal reasons.
+**Backend:**  
+https://eventmanage-backend-6h6p.onrender.com
+
+**GitHub Repository:**  
+https://github.com/sriram32134/eventauto
 
 ---
 
-## 🛠️ Technology Stack
+## Objectives
+
+The primary objectives of this QA automation project are:
+
+- Automate critical Event Manager application workflows.
+- Validate student and administrator functionality.
+- Verify backend REST APIs.
+- Cover positive and negative scenarios.
+- Validate role-based access and authentication.
+- Implement reusable Page Object Model classes.
+- Create reusable Playwright fixtures.
+- Generate dynamic and unique test data.
+- Maintain clear separation between test logic and page implementation.
+- Build a scalable automation framework suitable for regression testing.
+- Demonstrate practical QA automation engineering practices.
+
+---
+
+# Application Features Covered
+
+The automation framework covers major Event Manager functionality including:
+
+### Student Features
+
+- Student authentication
+- Student dashboard
+- Event discovery
+- Event details
+- Collaboration posts
+- User interactions
+- Protected student workflows
+
+### Administrator Features
+
+- Administrator authentication
+- Admin dashboard
+- Dashboard statistics
+- Official college event management
+- Student account provisioning
+- Department filtering
+- Announcement management
+- Announcement banner highlighting
+- Administrative workflows
+
+### Collaboration Features
+
+- Creating collaboration posts
+- Collaboration requirements
+- Post details
+- Moderation-related workflows
+- User interaction workflows
+
+---
+
+# Technology Stack
 
 | Technology | Purpose |
-| :--- | :--- |
-| **Node.js (v18+)** | Runtime environment |
-| **JavaScript (ES6+)** | Language |
-| **Playwright Test (^1.50)** | E2E & Component testing runner |
-| **Playwright APIRequestContext** | REST API testing framework |
-| **dotenv** | Environment configuration management |
-| **GitHub Actions** | Continuous Integration (CI) pipeline |
+|---|---|
+| Playwright | UI, API and E2E automation |
+| JavaScript | Automation scripting |
+| Node.js | Runtime environment |
+| React | Frontend application |
+| Vite | Frontend build tooling |
+| Express.js | Backend API |
+| MongoDB | Database |
+| JWT | Authentication and authorization |
+| Axios | HTTP/API communication |
+| Git | Version control |
+| GitHub | Source code repository |
 
 ---
 
-## 📁 Project Structure
+# Automation Framework
 
-```
-event-manager-playwright/
-├── .github/
-│   └── workflows/
-│       └── playwright.yml            # CI GitHub Actions pipeline
-├── .auth/                            # StorageState auth states (ignored in git)
+The project follows the **Page Object Model (POM)** architecture using Playwright.
+
+The framework separates:
+
+- Test scenarios
+- Page locators
+- Page actions
+- Test data
+- Application routes
+- Authentication setup
+- Reusable fixtures
+
+This approach improves readability, maintainability, reusability, and scalability.
+
+---
+
+# Complete Project Structure
+
+```text
+eventqa/
+│
 ├── fixtures/
-│   └── test-fixtures.js              # Custom Playwright test fixtures
-├── pages/                            # Page Object Model (POM) classes
-│   ├── StudentLoginPage.js           # Student sign-in & temp password reset modal
-│   ├── AdminLoginPage.js             # Admin sign-in screen
-│   ├── HomePage.js                   # Navbar, search, category pills & event cards
-│   ├── PostDetailPage.js             # Detailed activity view, save & register links
-│   ├── ConnectPage.js                # Collaboration board & request creation modal
-│   ├── SavedPage.js                  # Saved bookmarks view
-│   ├── MyPostsPage.js                # Logged student posts & moderation alerts
-│   ├── AnnouncementsPage.js          # Campus notices feed
-│   ├── CalendarPage.js               # Interactive month event calendar
-│   ├── AdminDashboardPage.js         # High-level metrics & quick navigation
-│   ├── AdminPostsPage.js             # Official post CRUD management
-│   ├── AdminStudentsPage.js          # Student account provisioning & filtering
-│   ├── AdminStudentPostsPage.js      # Student post moderation & removal modal
-│   └── AdminAnnouncementsPage.js     # Notice broadcasting & highlight toggle
+│   └── test-fixtures.js
+│
+├── pages/
+│   ├── AdminAnnouncementsPage.js
+│   ├── AdminDashboardPage.js
+│   ├── AdminLoginPage.js
+│   ├── AdminPostsPage.js
+│   ├── AdminStudentsPage.js
+│   ├── ConnectPage.js
+│   ├── DiscoveryPage.js
+│   ├── LoginPage.js
+│   ├── PostDetailPage.js
+│   └── ...
+│
 ├── tests/
-│   ├── e2e/
-│   │   ├── e2e-discovery.spec.js     # E2E 1: Event Discovery & Bookmarking
-│   │   ├── e2e-collaboration-moderation.spec.js # E2E 2: Collab Post & Admin Moderation
-│   │   └── e2e-student-provisioning.spec.js     # E2E 3: Admin Provisioning & Temp Pass
+│   │
+│   ├── api/
+│   │   ├── admin-auth.spec.js
+│   │   ├── student-auth.spec.js
+│   │   └── ...
+│   │
 │   ├── functional/
-│   │   ├── student-features.spec.js  # Student feature specs (search, category, calendar)
-│   │   └── admin-features.spec.js    # Admin feature specs (CRUD, student creation)
+│   │   └── admin-features.spec.js
+│   │
 │   ├── negative/
-│   │   ├── auth-negative.spec.js     # Login failure scenarios
-│   │   └── authorization-negative.spec.js # Protected route & API permission specs
-│   └── api/
-│       └── api-tests.spec.js         # Playwright REST API test suite
+│   │   ├── authentication-negative.spec.js
+│   │   ├── api-negative.spec.js
+│   │   └── ...
+│   │
+│   └── e2e/
+│       ├── e2e-collaboration-moderation.spec.js
+│       ├── e2e-discovery.spec.js
+│       └── e2e-student-provisioning.spec.js
+│
 ├── utils/
-│   ├── apiClient.js                  # API client helper class
-│   ├── authHelper.js                 # Session storageState generator
-│   ├── constants.js                  # Routes, endpoints & enum definitions
-│   └── testData.js                   # Dynamic unique data generators
-├── .env.example                      # Sample environment variables configuration
-├── .gitignore                        # Git exclusion rules
-├── package.json                      # Node project dependencies & scripts
-├── playwright.config.js              # Playwright global runner config
-└── README.md                         # Framework documentation
-```
+│   ├── constants.js
+│   └── testData.js
+│
+├── playwright.config.js
+├── package.json
+├── package-lock.json
+└── README.md
 
----
 
-## 🎯 Test Coverage Matrix
 
-### 1. Major E2E User Journeys
-- **E2E 1 — Event Discovery**: Student Login ➔ Search/Filter Event ➔ Open Event Details ➔ Save Event ➔ Navigate Saved Page ➔ Verify Bookmarked Event (`@e2e @student @smoke`).
-- **E2E 2 — Collaboration & Moderation**: Student creates collaboration post ➔ Admin opens student posts table ➔ Admin removes post with mandatory removal reason ➔ Student checks My Posts tab to verify status (`REMOVED`) and removal reason alert (`@e2e @student @admin`).
-- **E2E 3 — Student Provisioning**: Admin provisions student account ➔ Retrieves assigned Student ID & temporary password ➔ Student signs in with temporary password ➔ Completes mandatory password change modal ➔ Navigates to Home (`@e2e @admin @student`).
+Directory Responsibilities
+fixtures/
 
-### 2. Functional Suites
-- **Student Features**: Search input debouncing, category pills filtering (`EVENT`, `HACKATHON`, `SESSION`, `SPORTS`), announcements feed, interactive calendar navigation, connect board requirement filtering (`@functional @student`).
-- **Admin Features**: Dashboard stat metrics, official event publishing, student department/year filtering, notice broadcasting & top home banner highlight toggle (`@functional @admin`).
+Contains reusable Playwright fixtures used across multiple test suites.
 
-### 3. Negative & Authorization Suites
-- Invalid student credentials / non-existent student ID alert (`@negative @smoke`).
-- Invalid admin email / password alert (`@negative`).
-- Unauthenticated user route redirect verification (navigating to `/` or `/admin/dashboard` redirects to `/login/student`).
-- Protected API without Bearer token verification (`HTTP 401 Unauthorized`).
-- Student user calling Admin restricted API endpoints (`HTTP 403 Forbidden`).
+test-fixtures.js
 
-### 4. API Testing Suite
-- `POST /api/auth/student/login` — 200 OK + JWT payload validation.
-- `POST /api/auth/admin/login` — 200 OK + JWT payload validation.
-- `GET /api/auth/me` — Bearer token session validation.
-- `GET /api/posts` & `GET /api/announcements` — Public endpoints array response.
-- `POST /api/student-posts` — Student collaboration request creation via API.
-- `401 / 403 Negative API Assertions`.
+Provides reusable Page Object instances and common test setup so individual test files do not need to repeatedly initialize the same objects.
 
----
+pages/
 
-## 🔑 Authentication Strategy
+Contains Page Object Model classes.
 
-To prevent redundant UI login steps across hundreds of tests, the framework provides:
-- **`utils/authHelper.js`**: Programmatically fetches JSON Web Tokens (JWT) for Student and Admin roles via API and constructs Playwright `storageState` JSON files in `.auth/student.json` and `.auth/admin.json`.
-- **Custom Fixtures**: Automatically inject authenticated browser contexts or POM instances into individual spec files.
+Each Page Object represents a specific application page or workflow and contains:
 
----
+Locators
+Page actions
+Navigation methods
+Reusable validations
+User interaction methods
+Important Page Objects
 
-## ⚙️ Setup & Prerequisites
+AdminLoginPage.js
 
-### Prerequisites
-- **Node.js**: v18.0.0 or higher
-- **npm**: v9.0.0 or higher
+Administrator login
+Authentication interactions
 
-### Step 1: Install Dependencies
-```bash
-npm install
-```
+AdminDashboardPage.js
 
-### Step 2: Install Playwright Browsers
-```bash
-npx playwright install
-```
+Admin dashboard
+Dashboard validation
+Administrative navigation
 
-### Step 3: Configure Environment Variables
-Copy `.env.example` to `.env` and fill in credentials if required:
-```bash
-cp .env.example .env
-```
-Default configuration (`.env`):
-```env
-BASE_URL=https://eventmanage-wheat.vercel.app
-STUDENT_ID=23A81A0001
-STUDENT_PASSWORD=student123
-ADMIN_EMAIL=admin@gmail.com
-ADMIN_PASSWORD=admin123
-API_BASE_URL=https://eventmanage-wheat.vercel.app
-```
+AdminAnnouncementsPage.js
 
----
+Announcement creation
+Priority selection
+Banner highlighting
 
-## 🚀 Execution & Useful Commands
+AdminPostsPage.js
 
-| Action | Command |
-| :--- | :--- |
-| **Run All Tests (Headless)** | `npm test` or `npx playwright test` |
-| **Run Tests in Headed Mode** | `npm run test:headed` or `npx playwright test --headed` |
-| **Run Tests in Playwright UI Mode** | `npm run test:ui` or `npx playwright test --ui` |
-| **Debug Mode** | `npx playwright test --debug` |
-| **Run Smoke Test Suite** | `npm run test:smoke` or `npx playwright test --grep @smoke` |
-| **Run API Test Suite** | `npm run test:api` or `npx playwright test --grep @api` |
-| **Run E2E Workflows** | `npm run test:e2e` or `npx playwright test --grep @e2e` |
-| **Run Student Tests Only** | `npm run test:student` or `npx playwright test --grep @student` |
-| **Run Admin Tests Only** | `npm run test:admin` or `npx playwright test --grep @admin` |
-| **Run Negative Tests Only** | `npm run test:negative` or `npx playwright test --grep @negative` |
-| **View HTML Test Report** | `npm run report` or `npx playwright show-report` |
+Official event/post creation
+Post validation
 
----
+AdminStudentsPage.js
 
-## 🔄 CI/CD Integration (GitHub Actions)
+Student account creation
+Student information handling
+Department filtering
+Student management
 
-The framework includes a ready-to-use GitHub Actions workflow (`.github/workflows/playwright.yml`).
-- Automatically triggers on `push` or `pull_request` to `main` / `master`.
-- Installs Node.js, dependencies, and Playwright browsers (`npx playwright install --with-deps`).
-- Executes test suite headlessly.
-- Uploads `playwright-report` as a downloadable GitHub artifact upon job completion.
+ConnectPage.js
 
----
+Collaboration post creation
+Collaboration form interactions
 
-## 📝 QA Interview Walkthrough Highlights
+DiscoveryPage.js
 
-When discussing this project in a QA Automation interview:
-1. **Architecture**: Explain why POM was implemented alongside custom Playwright fixtures to decouple page locators from test logic.
-2. **Session Security & StorageState**: Highlight how JWT tokens are injected directly into `localStorage` to avoid brittle, slow UI login loops.
-3. **API & UI Layer Hybrid Testing**: Detail how data setup/teardown is handled fast via `APIRequestContext` before validating user experience on the UI.
-4. **Locators**: Emphasize strict usage of user-facing locators (`getByRole`, `getByPlaceholder`, `getByText`, `getByLabel`) over brittle CSS/XPath selectors.
+Event/post discovery
+Search and navigation workflows
+
+PostDetailPage.js
+
+Post/event detail validation
+Detail-page interactions
+
+LoginPage.js
+
+Student authentication
+Login workflow
+tests/
+
+Contains all automated test specifications grouped by testing type.
+
+tests/api/
+
+Contains backend API automation.
+
+API tests validate backend functionality independently from the browser UI.
+
+API coverage includes:
+Authentication endpoints
+Student-related endpoints
+Administrator endpoints
+Protected resources
+Event/post operations
+Announcement operations
+Request validation
+Authentication and authorization behavior
+API response validation
+tests/functional/
+
+Contains feature-level UI tests.
+
+Functional coverage includes:
+Admin dashboard
+Dashboard statistics
+Official event creation
+Student account provisioning
+Department filtering
+Announcement creation
+Announcement banner highlighting
+Administrative workflows
+Form interactions
+Role-based functionality
+tests/negative/
+
+Contains negative test scenarios designed to verify application behavior when invalid or unexpected inputs are provided.
+
+Negative coverage includes:
+Invalid credentials
+Missing required fields
+Invalid input values
+Unauthorized requests
+Authentication failures
+Invalid API requests
+Validation handling
+Protected resource access
+tests/e2e/
+
+Contains complete end-to-end user workflows.
+
+E2E workflows include:
+Collaboration & Moderation
+
+Validates collaboration post creation and related moderation workflow interactions.
+
+Discovery
+
+Validates event/post discovery and navigation through the application.
+
+Student Provisioning
+
+Validates the administrator workflow for creating and managing student accounts.
+
+utils/
+
+Contains reusable framework utilities.
+
+constants.js
+
+Centralizes application-level constants such as:
+
+Application routes
+URLs
+Shared configuration values
+
+Centralizing routes prevents duplicated hard-coded URLs throughout the test suite.
+
+
+Authentication Strategy
+
+Event Manager uses role-based authentication.
+
+The framework supports:
+
+Student Role
+
+Used for:
+
+Student login
+Event discovery
+Student workflows
+Protected student functionality
+Administrator Role
+
+Used for:
+
+Admin login
+Event management
+Student account management
+Announcement management
+Administrative dashboard workflows
+
+Authentication is handled through reusable Page Objects and Playwright fixtures.
+
+Test Data Strategy
+
+The framework uses dynamically generated data wherever appropriate.
+
+Examples include:
+
+Unique student IDs
+Unique email addresses
+Event titles
+Announcement titles
+Student information
+Collaboration post information
+
+Dynamic data generation helps reduce test-data conflicts and supports repeatable automation.
+
+Locator Strategy
+
+The automation framework uses reliable Playwright locator strategies such as:
+
+getByRole()
+getByLabel()
+getByPlaceholder()
+CSS locators
+Scoped locators
+Filtered locators
+
+Locators are maintained inside Page Object classes rather than directly inside test specifications.
+
+This keeps test cases readable and makes UI changes easier to maintain.
+
+Test Architecture
+
+The overall automation architecture can be represented as:
+
+                    Event Manager
+                         │
+                         ▼
+                Playwright Framework
+                         │
+          ┌──────────────┼──────────────┐
+          │              │              │
+          ▼              ▼              ▼
+      API Tests     UI Functional    E2E Tests
+          │              │              │
+          └──────────────┼──────────────┘
+                         │
+                         ▼
+                  Negative Testing
+                         │
+                         ▼
+                    QA Validation
+QA Testing Approach
+
+The project follows a layered automation strategy.
+
+API Layer
+
+Validates backend services and API behavior independently of the UI.
+
+Functional Layer
+
+Validates individual application features and administrator workflows through the browser.
+
+Negative Layer
+
+Validates how the application handles invalid inputs, authentication failures, validation errors, and unauthorized actions.
+
+End-to-End Layer
+
+Validates complete user journeys across multiple application features.
+
+This layered approach helps provide broader coverage while keeping individual tests focused.
+
+
+Page Object Model
+
+The framework follows the Page Object Model pattern.
+
+Instead of writing locators and application interactions directly inside test cases, they are encapsulated inside dedicated Page Object classes.
+
+For example:
+
+Test Specification
+       │
+       ▼
+Page Object
+       │
+       ├── Locators
+       ├── Actions
+       └── Validations
+       │
+       ▼
+Event Manager Application
+Benefits
+Better code organization
+Reduced duplication
+Easier maintenance
+Reusable page actions
+Cleaner test cases
+Improved scalability
+Playwright Fixtures
+
+Reusable fixtures are implemented to simplify test setup.
+
+Fixtures provide access to Page Object instances such as:
+
+Login pages
+Admin dashboard
+Admin students
+Admin announcements
+Admin posts
+Discovery
+Collaboration pages
+Post details
+
+This avoids repeatedly creating Page Object instances in individual tests.
+
+Role-Based Testing
+
+The application provides different functionality based on user roles.
+
+The automation framework therefore validates workflows separately for:
+
+Students
+Administrators
+
+This helps ensure that role-specific functionality is covered independently.
+
+API and UI Validation
+
+The project uses both API and browser-level automation.
+
+API Testing
+
+Focuses on:
+
+Endpoint behavior
+Authentication
+Authorization
+Request validation
+Response validation
+UI Testing
+
+Focuses on:
+
+User interactions
+Forms
+Navigation
+Visibility
+Role-based workflows
+Feature behavior
+
+Combining both approaches provides stronger coverage than relying only on UI automation.
+
+Negative Testing
+
+Negative testing is an important part of the framework.
+
+The objective is not only to verify that valid workflows work, but also to verify that the application responds appropriately to invalid conditions.
+
+Examples include:
+
+Incorrect credentials
+Missing mandatory information
+Invalid input
+Unauthorized access
+Invalid API requests
+Protected route access
+
+
+Project Repository
+
+GitHub:
+https://github.com/sriram32134/eventauto
+
+Application:
+https://eventmanage-wheat.vercel.app/login/student
+
